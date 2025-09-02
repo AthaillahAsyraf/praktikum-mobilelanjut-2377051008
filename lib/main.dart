@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const MyHomePage(title: 'Athaillah Asyraf'),
+      home: const MyHomePage(title: 'Athaillah Asyraf - 2377051008'),
     );
   }
 }
