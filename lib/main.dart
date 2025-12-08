@@ -1,22 +1,56 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/basic_widget.dart';
+import 'screens/login_screen.dart';
+import 'screens/signup_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const JustduitApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class JustduitApp extends StatelessWidget {
+  const JustduitApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Praktikum Mobile Lanjut',
+      debugShowCheckedModeBanner: false,
+      title: 'Justduit',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        scaffoldBackgroundColor:
+            const Color(0xFFF3F6F8), // abu-abu muda
         useMaterial3: true,
+        colorScheme:
+            ColorScheme.fromSeed(seedColor: const Color(0xFF18BFFF)),
+        inputDecorationTheme: InputDecorationTheme(
+          isDense: true,
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 14,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide:
+                const BorderSide(color: Color(0xFFE0E0E0)),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide:
+                const BorderSide(color: Color(0xFFE0E0E0)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide:
+                const BorderSide(color: Color(0xFF18BFFF)),
+          ),
+        ),
       ),
-      home: const BasicWidget(),
+      initialRoute: LoginScreen.route,
+      routes: {
+        '/': (_) => const LoginScreen(), // default = Sign In
+        LoginScreen.route: (_) => const LoginScreen(),
+        SignupScreen.route: (_) => const SignupScreen(),
+      },
     );
   }
 }
