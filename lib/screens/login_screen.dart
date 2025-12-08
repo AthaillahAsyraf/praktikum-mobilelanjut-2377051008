@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'signup_screen.dart';
+import 'dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   static const route = '/signin';
@@ -20,7 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  // komponen kecil buat label + tanda *
   Widget requiredLabel(String text) => Row(
         children: [
           Text(text, style: const TextStyle(fontSize: 13)),
@@ -31,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
         ],
       );
 
-  // tombol biru dengan gradient (UI-only)
   Widget primaryButton(String label, VoidCallback onTap) => GestureDetector(
         onTap: onTap,
         child: Container(
@@ -72,18 +71,14 @@ class _LoginScreenState extends State<LoginScreen> {
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Logo
                 Image.asset(
                   'assets/logo-mola.png',
                   height: 80,
-                  fit: BoxFit.contain,
                 ),
 
                 const SizedBox(height: 18),
 
-                // Judul
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24),
                   child: Align(
@@ -100,7 +95,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
                 const SizedBox(height: 14),
 
-                // Card Form
                 Container(
                   width: 360,
                   margin: const EdgeInsets.symmetric(horizontal: 20),
@@ -143,30 +137,26 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
 
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 16),
 
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          onPressed: () {},
-                          child: const Text(
-                            'Forgot Password',
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(height: 6),
-
+                      // ✅ VALIDASI + NAVIGATOR (Sesuai PDF)
                       primaryButton('Sign In Now', () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Sign In tapped'),
-                          ),
-                        );
+                        if (_email.text.isEmpty ||
+                            _pass.text.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                  'Email dan Password tidak boleh kosong'),
+                            ),
+                          );
+                        } else {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DashboardScreen(),
+                            ),
+                          );
+                        }
                       }),
 
                       const SizedBox(height: 14),
@@ -174,7 +164,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, SignupScreen.route);
+                            Navigator.pushNamed(
+                                context, SignupScreen.route);
                           },
                           child: const Text(
                             'Create New Account',
